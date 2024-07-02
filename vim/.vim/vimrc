@@ -1,5 +1,7 @@
+" GENERAL SETTINGS
 let maplocalleader=","
 let mapleader=" "
+set viminfo+=n~/.vim/.viminfo
 set nocompatible
 set autoindent
 
@@ -12,7 +14,6 @@ set number
 set wrap
 set relativenumber
 set scrolloff=99
-set viminfo+=n~/.vim/.viminfo
 set mouse=a
 set fileencoding=UTF-8
 set fileencodings=UTF-8
@@ -35,18 +36,18 @@ function! GitStatus()
   let [a,m,r] = GitGutterGetHunkSummary()
   return printf('+%d ~%d -%d', a, m, r)
 endfunction
+
 set statusline=
 set statusline+=\ %F\ %M\ %Y\ %R
-set statusline+=git:\ %{GitStatus()}
 set statusline+=%=
-set statusline+=\ hex:\ 0x%B\ row:\ %l\ col:\ %c\
+set statusline+=git:\ %{GitStatus()}
+set statusline+=\ hex:\ 0x%B\ row:\ %l\ col:\ %c\ 
 set laststatus=2
 " }}}
 
 " Mappings ----------------------------------{{{
 nnoremap - ddp 
 nnoremap _ ddkP 
-
 nnoremap <leader>cn  :edit $MYVIMRC<cr> 
 nnoremap <leader>cnh :split $MYVIMRC<cr> 
 nnoremap <leader>cnv :vsplit $MYVIMRC<cr> 
@@ -118,7 +119,6 @@ Plug 'scrooloose/nerdtree'
 Plug 'airblade/vim-gitgutter'
 Plug 'flazz/vim-colorschemes'
 Plug 'benmills/vimux'
-Plug 'julienr/vim-cellmode'
 Plug 'greghor/vim-pyShell'
 Plug 'ryanoasis/vim-devicons'
 
@@ -128,13 +128,8 @@ call plug#end()
 nnoremap <localleader>ss :call StartPyShell()<CR>
 noremap <localleader>sk :call StopPyShell()<CR>
 " code execution
-" ad -y /tmp/voqwlPh/6.ipy
-"
-nnoremap <localleader>r :call PyShellSendLine()<CR>
-vnoremap <localleader>r :call PyShellSendLine()<CR>
-
-noremap <silent> <C-n> :call RunTmuxPythonCell(0)<CR>
-noremap <C-a> :call RunTmuxPythonAllCellsAbove()<CR>
+nnoremap <leader>r :call PyShellSendLine()<CR>
+vnoremap <leader>r :call PyShellSendLine()<CR>
 
 function! s:on_lsp_buffer_enabled() abort
 	setlocal omnifunc=lsp#complete

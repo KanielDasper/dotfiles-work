@@ -10,7 +10,7 @@ fi
 
 # Install packages
 sudo apt update && sudo apt upgrade
-sudo apt install git unzip neofetch vim tmux zsh stow curl pkg-config cmake zsh-syntax-highlighting zsh-autosuggestions cargo npm python3.11-venv wget bc kmod cpio fakeroot build-essential libncurses-dev bison flex libssl-dev libelf-devl -y
+sudo apt install fzf git unzip neofetch vim tmux zsh stow curl pkg-config cmake zsh-syntax-highlighting zsh-autosuggestions cargo npm python3.11-venv wget bc kmod cpio fakeroot build-essential libncurses-dev bison flex libssl-dev libelf-dev -y
 echo "Installing JetBrains Mono Nerdfont..."
 wget "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip"
 echo "Making directories and unzipping the font..."
