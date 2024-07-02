@@ -1,0 +1,128 @@
+let maplocalleader=","
+let mapleader=" "
+set nocompatible
+set autoindent
+
+" Numbers, colors and cursors
+syntax on
+colorscheme habamax
+set clipboard='unnamedplus'
+set termguicolors
+set number
+set wrap
+set relativenumber
+set scrolloff=99
+set viminfo+=n~/.vim/.viminfo
+set mouse=a
+set fileencoding=UTF-8
+set fileencodings=UTF-8
+
+" Tab and search completion in the vim terminal
+set hlsearch
+set incsearch
+set showcmd
+set showmatch
+set wildmenu
+set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
+set undofile
+ 
+" Split preferences 
+set splitright
+set splitbelow
+
+" Statusline ------------------------------------------ {{{
+set statusline=
+set statusline+=\ %F\ %M\ %Y\ %R
+set statusline+=%=
+set statusline+=\ ascii:\ %b\ hex:\ 0x%B\ row:\ %l\ col:\ %c\ percent:\ %p%%
+set laststatus=2
+" }}}
+
+" Mappings ----------------------------------{{{
+nnoremap - ddp 
+nnoremap _ ddkP 
+nnoremap <leader>cn :split $MYVIMRC<cr> 
+nnoremap <leader>cnv :vsplit $MYVIMRC<cr> 
+nnoremap <leader>scn :source $MYVIMRC<cr>
+nnoremap <leader>t :term<CR><C-W>w:resize 25<CR><C-W>w
+nnoremap <leader>n :NERDTreeToggle<cr>
+inoremap jj <esc>
+
+"Wrappings - ", ', (, [, {
+nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
+nnoremap <leader>' viw<esc>a'<esc>bi'<esc>lel
+nnoremap <leader>( viw<esc>a)<esc>bi(<esc>lel
+nnoremap <leader>[ viw<esc>a]<esc>bi[<esc>lel
+nnoremap <leader>{ viw<esc>a}<esc>bi{<esc>lel
+"}}}
+
+" Filetype Specific settings ----------------------{{{
+augroup filetype_javascript
+	autocmd!
+	autocmd FileType javascript nnoremap <buffer> <localleader>c I//<esc>
+augroup END
+
+augroup filetype_python
+	autocmd!
+	autocmd FileType python vnoremap <buffer> <localleader>c :s/^/#/<CR>gv
+	autocmd FileType python vnoremap <buffer> <localleader>u :s/^#//<CR>gv
+augroup END
+" }}}
+
+" Vimscripts and file settings ----------------------------{{{
+augroup filetype_vim
+	autocmd!
+	autocmd FileType vim setlocal foldmethod=marker
+augroup END
+
+nnoremap <leader>f :call FoldColumnToggle()<cr>
+function! FoldColumnToggle()
+	if &foldcolumn
+		setlocal foldcolumn=0
+	else
+		setlocal foldcolumn=2
+	endif
+endfunction
+
+nnoremap <leader>q :call QuickfixToggle()<cr>
+let g:quickfix_is_open = 0
+
+function! QuickfixToggle()
+	if g:quickfix_is_open
+		cclose
+		let g:quickfix_is_open = 0
+		execute g:quickfix_return_to_window . "wincmd w"
+	else
+		let g:quickfix_return_to_window = winnr()
+		copen
+		let g:quickfix_is_open = 1
+	endif
+endfunction
+
+"}}}
+
+" Vim plug plug-ins ----------------------------------------{{{
+call plug#begin()
+
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'scrooloose/nerdtree'
+Plug 'ryanoasis/vim-devicons'
+
+call plug#end() 
+
+function! s:on_lsp_buffer_enabled() abort
+	setlocal omnifunc=lsp#complete
+endfunction
+
+augroup lsp_install
+	au!
+	autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+
+augroup nerd_tree
+	au!
+	autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+augroup END
+
+"}}}
