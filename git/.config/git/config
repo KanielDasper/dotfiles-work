@@ -1,0 +1,13 @@
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+[user]
+	name = KanielDasper
+	email = dkdanielkasper@gmail.com
+[credential]
+	helper = store
+[alias]
+    st = status
+    cm = commit -m 
