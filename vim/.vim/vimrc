@@ -39,18 +39,21 @@ set statusline=
 set statusline+=\ %F\ %M\ %Y\ %R
 set statusline+=git:\ %{GitStatus()}
 set statusline+=%=
-set statusline+=\ ascii:\ %b\ hex:\ 0x%B\ row:\ %l\ col:\ %c\ percent:\ %p%%
+set statusline+=\ hex:\ 0x%B\ row:\ %l\ col:\ %c\
 set laststatus=2
 " }}}
 
 " Mappings ----------------------------------{{{
 nnoremap - ddp 
 nnoremap _ ddkP 
-nnoremap <leader>cn :split $MYVIMRC<cr> 
+
+nnoremap <leader>cn  :edit $MYVIMRC<cr> 
+nnoremap <leader>cnh :split $MYVIMRC<cr> 
 nnoremap <leader>cnv :vsplit $MYVIMRC<cr> 
 nnoremap <leader>scn :source $MYVIMRC<cr>
-nnoremap <leader>t :term<CR><C-W>w:resize 25<CR><C-W>w
+nnoremap <C-D> :term<CR>
 nnoremap <leader>n :NERDTreeToggle<cr>
+nnoremap <leader>w <C-W>w
 inoremap jj <esc>
 
 "Wrappings - ", ', (, [, {
@@ -114,9 +117,24 @@ Plug 'mattn/vim-lsp-settings'
 Plug 'scrooloose/nerdtree'
 Plug 'airblade/vim-gitgutter'
 Plug 'flazz/vim-colorschemes'
+Plug 'benmills/vimux'
+Plug 'julienr/vim-cellmode'
+Plug 'greghor/vim-pyShell'
 Plug 'ryanoasis/vim-devicons'
 
 call plug#end() 
+
+" ipython-shell
+nnoremap <localleader>ss :call StartPyShell()<CR>
+noremap <localleader>sk :call StopPyShell()<CR>
+" code execution
+" ad -y /tmp/voqwlPh/6.ipy
+"
+nnoremap <localleader>r :call PyShellSendLine()<CR>
+vnoremap <localleader>r :call PyShellSendLine()<CR>
+
+noremap <silent> <C-n> :call RunTmuxPythonCell(0)<CR>
+noremap <C-a> :call RunTmuxPythonAllCellsAbove()<CR>
 
 function! s:on_lsp_buffer_enabled() abort
 	setlocal omnifunc=lsp#complete
@@ -136,9 +154,5 @@ augroup END
 highlight GitGutterAdd    guifg=#00FF00 ctermfg=2 
 highlight GitGutterChange guifg=#FFFF00 ctermfg=3  
 highlight GitGutterDelete guifg=#FF0000 ctermfg=1
-
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-let g:WebDevIconsUnicodeDecorateFolderNodeDefaultSymbol = '#'
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
 
 "}}}
