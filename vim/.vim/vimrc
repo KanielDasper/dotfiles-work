@@ -5,7 +5,7 @@ set autoindent
 
 " Numbers, colors and cursors
 syntax on
-colorscheme habamax
+colorscheme molokai
 set clipboard='unnamedplus'
 set termguicolors
 set number
@@ -31,8 +31,13 @@ set splitright
 set splitbelow
 
 " Statusline ------------------------------------------ {{{
+function! GitStatus()
+  let [a,m,r] = GitGutterGetHunkSummary()
+  return printf('+%d ~%d -%d', a, m, r)
+endfunction
 set statusline=
 set statusline+=\ %F\ %M\ %Y\ %R
+set statusline+=git:\ %{GitStatus()}
 set statusline+=%=
 set statusline+=\ ascii:\ %b\ hex:\ 0x%B\ row:\ %l\ col:\ %c\ percent:\ %p%%
 set laststatus=2
@@ -107,6 +112,8 @@ call plug#begin()
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'scrooloose/nerdtree'
+Plug 'airblade/vim-gitgutter'
+Plug 'flazz/vim-colorschemes'
 Plug 'ryanoasis/vim-devicons'
 
 call plug#end() 
@@ -124,5 +131,14 @@ augroup nerd_tree
 	au!
 	autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 augroup END
+
+" GitGutterColors
+highlight GitGutterAdd    guifg=#00FF00 ctermfg=2 
+highlight GitGutterChange guifg=#FFFF00 ctermfg=3  
+highlight GitGutterDelete guifg=#FF0000 ctermfg=1
+
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:WebDevIconsUnicodeDecorateFolderNodeDefaultSymbol = '#'
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
 
 "}}}
