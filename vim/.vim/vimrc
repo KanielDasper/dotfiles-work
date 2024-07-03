@@ -7,8 +7,7 @@ set autoindent
 
 " Numbers, colors and cursors
 syntax on
-colorscheme molokai
-set clipboard='unnamedplus'
+colorscheme nord
 set termguicolors
 set number
 set wrap
