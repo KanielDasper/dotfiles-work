@@ -4,6 +4,7 @@ let mapleader=" "
 set viminfo+=n~/.vim/.viminfo
 set nocompatible
 set autoindent
+set textwidth=120
 
 " Numbers, colors and cursors
 syntax on
@@ -62,6 +63,25 @@ nnoremap <leader>' viw<esc>a'<esc>bi'<esc>lel
 nnoremap <leader>( viw<esc>a)<esc>bi(<esc>lel
 nnoremap <leader>[ viw<esc>a]<esc>bi[<esc>lel
 nnoremap <leader>{ viw<esc>a}<esc>bi{<esc>lel
+
+" ipython-shell
+nnoremap <localleader>ss :call StartPyShell()<CR>
+noremap <localleader>sk :call StopPyShell()<CR>
+" code execution
+nnoremap <leader>r :call PyShellSendLine()<CR>
+vnoremap <leader>r :call PyShellSendLine()<CR>
+" LSP config
+nnoremap <leader>dd :LspDefinition<cr>
+nnoremap <leader>dn :LspNextDiagnostic<cr>
+nnoremap <leader>dp :LspPreviousDiagnostic<cr>
+nnoremap <leader>df :LspReferences<cr>
+nnoremap <leader>dr :LspRename<cr>
+nnoremap <leader>ds :LspStopServer<cr>
+nnoremap <leader>dp :LspPeekDefinition<cr>
+nnoremap <leader>da :LspCodeAction<cr>
+nnoremap <leader>dh :LspHover<cr>
+nnoremap <leader>df :LspDocumentFormat<cr> 
+nnoremap <leader>dd :LspDefinition<cr>
 "}}}
 
 " Filetype Specific settings ----------------------{{{
@@ -119,16 +139,12 @@ Plug 'airblade/vim-gitgutter'
 Plug 'flazz/vim-colorschemes'
 Plug 'benmills/vimux'
 Plug 'greghor/vim-pyShell'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'ryanoasis/vim-devicons'
+Plug 'mhinz/vim-startify'
 
 call plug#end() 
-
-" ipython-shell
-nnoremap <localleader>ss :call StartPyShell()<CR>
-noremap <localleader>sk :call StopPyShell()<CR>
-" code execution
-nnoremap <leader>r :call PyShellSendLine()<CR>
-vnoremap <leader>r :call PyShellSendLine()<CR>
 
 function! s:on_lsp_buffer_enabled() abort
 	setlocal omnifunc=lsp#complete
