@@ -1,4 +1,4 @@
-" Statusline ------------------------------------------ {{{
+" STATUSLINE
 function! GitStatus()
   let [a,m,r] = GitGutterGetHunkSummary()
   return printf('+%d ~%d -%d', a, m, r)
@@ -10,4 +10,4 @@ set statusline+=%=
 set statusline+=git:\ %{GitStatus()}
 set statusline+=\ hex:\ 0x%B\ row:\ %l\ col:\ %c\ 
 set laststatus=2
-" }}}
+

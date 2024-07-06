@@ -27,3 +27,12 @@ function! QuickfixToggle()
 		let g:quickfix_is_open = 1
 	endif
 endfunction
+
+function! TogglePasteMode()
+   setlocal paste!
+   if &paste == 1
+       echo "Pastemode is on"
+   else
+       echo "Pastemode if off"
+   endif
+endfunction    
