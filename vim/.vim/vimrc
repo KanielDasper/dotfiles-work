@@ -6,6 +6,20 @@ set nocompatible
 set autoindent
 set textwidth=120
 
+" Source all .vim files in the ~/.vim/config directory
+ for file in split(glob('~/.vim/config/*.vim'), '\n')
+     execute 'source ' . file
+     endfor
+
+" Filetype settings
+filetype plugin on
+filetype indent on
+set fileencoding=UTF-8
+set fileencodings=UTF-8
+" Detects external changes to a file
+set autoread
+au FocusGained,BufEnter * silent! checktime
+
 " Numbers, colors and cursors
 syntax on
 colorscheme nord
@@ -15,8 +29,6 @@ set wrap
 set relativenumber
 set scrolloff=99
 set mouse=a
-set fileencoding=UTF-8
-set fileencodings=UTF-8
 
 " Tab and search completion in the vim terminal
 set hlsearch
@@ -31,58 +43,6 @@ set undofile
 set splitright
 set splitbelow
 
-" Statusline ------------------------------------------ {{{
-function! GitStatus()
-  let [a,m,r] = GitGutterGetHunkSummary()
-  return printf('+%d ~%d -%d', a, m, r)
-endfunction
-
-set statusline=
-set statusline+=\ %F\ %M\ %Y\ %R
-set statusline+=%=
-set statusline+=git:\ %{GitStatus()}
-set statusline+=\ hex:\ 0x%B\ row:\ %l\ col:\ %c\ 
-set laststatus=2
-" }}}
-
-" Mappings ----------------------------------{{{
-nnoremap - ddp 
-nnoremap _ ddkP 
-nnoremap <leader>cn  :edit $MYVIMRC<cr> 
-nnoremap <leader>cnh :split $MYVIMRC<cr> 
-nnoremap <leader>cnv :vsplit $MYVIMRC<cr> 
-nnoremap <leader>scn :source $MYVIMRC<cr>
-nnoremap <C-D> :term<CR>
-nnoremap <leader>n :NERDTreeToggle<cr>
-nnoremap <leader>w <C-W>w
-inoremap jj <esc>
-
-"Wrappings - ", ', (, [, {
-nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
-nnoremap <leader>' viw<esc>a'<esc>bi'<esc>lel
-nnoremap <leader>( viw<esc>a)<esc>bi(<esc>lel
-nnoremap <leader>[ viw<esc>a]<esc>bi[<esc>lel
-nnoremap <leader>{ viw<esc>a}<esc>bi{<esc>lel
-
-" ipython-shell
-nnoremap <localleader>ss :call StartPyShell()<CR>
-noremap <localleader>sk :call StopPyShell()<CR>
-" code execution
-nnoremap <leader>r :call PyShellSendLine()<CR>
-vnoremap <leader>r :call PyShellSendLine()<CR>
-" LSP config
-nnoremap <leader>dd :LspDefinition<cr>
-nnoremap <leader>dn :LspNextDiagnostic<cr>
-nnoremap <leader>dp :LspPreviousDiagnostic<cr>
-nnoremap <leader>df :LspReferences<cr>
-nnoremap <leader>dr :LspRename<cr>
-nnoremap <leader>ds :LspStopServer<cr>
-nnoremap <leader>dp :LspPeekDefinition<cr>
-nnoremap <leader>da :LspCodeAction<cr>
-nnoremap <leader>dh :LspHover<cr>
-nnoremap <leader>df :LspDocumentFormat<cr> 
-nnoremap <leader>dd :LspDefinition<cr>
-"}}}
 
 " Filetype Specific settings ----------------------{{{
 augroup filetype_javascript
@@ -161,8 +121,10 @@ augroup nerd_tree
 augroup END
 
 " GitGutterColors
-highlight GitGutterAdd    guifg=#00FF00 ctermfg=2 
-highlight GitGutterChange guifg=#FFFF00 ctermfg=3  
 highlight GitGutterDelete guifg=#FF0000 ctermfg=1
+highlight GitGutterAdd    guifg=#00FF00 ctermfg=2 
+highlight GitGutterDelete guifg=#FF0000 ctermfg=1
+highlight GitGutterChange guifg=#FFFF00 ctermfg=3  
+
 
 "}}}
