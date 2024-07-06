@@ -1,3 +1,6 @@
+" <leader> + <cr> to remove highlight
+nnoremap <silent><leader><cr> :noh<cr>
+
 nnoremap - ddp 
 nnoremap _ ddkP 
 nnoremap <leader>cn  :edit $MYVIMRC<cr> 
@@ -5,7 +8,6 @@ nnoremap <leader>cnh :split $MYVIMRC<cr>
 nnoremap <leader>cnv :vsplit $MYVIMRC<cr> 
 nnoremap <leader>scn :source $MYVIMRC<cr>
 nnoremap <C-D> :term<CR>
-nnoremap <leader>n :NERDTreeToggle<cr>
 nnoremap <leader>w <C-W>w
 inoremap jj <esc>
 
@@ -22,6 +24,7 @@ noremap <localleader>sk :call StopPyShell()<CR>
 " code execution
 nnoremap <leader>r :call PyShellSendLine()<CR>
 vnoremap <leader>r :call PyShellSendLine()<CR>
+
 " LSP config
 nnoremap <leader>dd :LspDefinition<cr>
 nnoremap <leader>dn :LspNextDiagnostic<cr>

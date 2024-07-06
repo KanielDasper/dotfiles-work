@@ -1,48 +1,52 @@
-" GENERAL SETTINGS
-let maplocalleader=","
-let mapleader=" "
-set viminfo+=n~/.vim/.viminfo
-set nocompatible
-set autoindent
-set textwidth=120
-
 " Source all .vim files in the ~/.vim/config directory
  for file in split(glob('~/.vim/config/*.vim'), '\n')
      execute 'source ' . file
      endfor
 
+" ****************   
+" GENERAL SETTINGS
+" ****************
+let maplocalleader=","
+let mapleader=" "
+set mouse=a
+set nocompatible
+set termguicolors
+colorscheme nord
+set splitright
+set splitbelow
+set number
+set relativenumber
+set scrolloff=99
+
 " Filetype settings
+" Detects external changes to a file
+syntax on
 filetype plugin on
 filetype indent on
 set fileencoding=UTF-8
 set fileencodings=UTF-8
-" Detects external changes to a file
 set autoread
 au FocusGained,BufEnter * silent! checktime
 
-" Numbers, colors and cursors
-syntax on
-colorscheme nord
-set termguicolors
-set number
-set wrap
-set relativenumber
-set scrolloff=99
-set mouse=a
-
-" Tab and search completion in the vim terminal
+" Search completion in the vim terminal
+set wildmenu
+set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 set hlsearch
 set incsearch
 set showcmd
 set showmatch
-set wildmenu
-set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 set undofile
- 
-" Split preferences 
-set splitright
-set splitbelow
 
+" Tab and indentation settings
+set autoindent
+set smartindent
+set wrap
+set expandtab
+set smarttab
+set shiftwidth=4
+set tabstop=4
+set linebreak
+set textwidth=79
 
 " Filetype Specific settings ----------------------{{{
 augroup filetype_javascript
@@ -56,38 +60,6 @@ augroup filetype_python
 	autocmd FileType python vnoremap <buffer> <localleader>u :s/^#//<CR>gv
 augroup END
 " }}}
-
-" Vimscripts and file settings ----------------------------{{{
-augroup filetype_vim
-	autocmd!
-	autocmd FileType vim setlocal foldmethod=marker
-augroup END
-
-nnoremap <leader>f :call FoldColumnToggle()<cr>
-function! FoldColumnToggle()
-	if &foldcolumn
-		setlocal foldcolumn=0
-	else
-		setlocal foldcolumn=2
-	endif
-endfunction
-
-nnoremap <leader>q :call QuickfixToggle()<cr>
-let g:quickfix_is_open = 0
-
-function! QuickfixToggle()
-	if g:quickfix_is_open
-		cclose
-		let g:quickfix_is_open = 0
-		execute g:quickfix_return_to_window . "wincmd w"
-	else
-		let g:quickfix_return_to_window = winnr()
-		copen
-		let g:quickfix_is_open = 1
-	endif
-endfunction
-
-"}}}
 
 " Vim plug plug-ins ----------------------------------------{{{
 call plug#begin()
@@ -115,16 +87,22 @@ augroup lsp_install
 	autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 
-augroup nerd_tree
-	au!
-	autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-augroup END
 
-" GitGutterColors
+" GitGutter config for colors
 highlight GitGutterDelete guifg=#FF0000 ctermfg=1
 highlight GitGutterAdd    guifg=#00FF00 ctermfg=2 
 highlight GitGutterDelete guifg=#FF0000 ctermfg=1
 highlight GitGutterChange guifg=#FFFF00 ctermfg=3  
 
+" NERDTree config
+augroup nerd_tree
+	au!
+	autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+augroup END
+
+let g:NERDTreeWinPos = "right"
+let NERDTreeIgnore = ['\.pyc$', '__pycache__']
+map <leader>nn :NERDTreeToggle<cr>
+map <leader>nf :NERDTreeFind<cr>
 
 "}}}
