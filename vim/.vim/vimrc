@@ -3,12 +3,14 @@
 " ****************
 let maplocalleader=","
 let mapleader=" "
+set signcolumn=yes
 set mouse=a
 set nocompatible
-set termguicolors
 colorscheme nord
+
 set splitright
 set splitbelow
+
 set number
 set relativenumber
 set scrolloff=99
@@ -57,6 +59,7 @@ set tabstop=2
 set textwidth=79
 
 " Filetype Specific settings ----------------------{{{
+
 augroup filetype_javascript
 	autocmd!
 	autocmd FileType javascript nnoremap <buffer> <localleader>c I//<esc>
@@ -77,6 +80,7 @@ au BufNewFile,BufRead *.py
 
 " Vim plug plug-ins ----------------------------------------{{{
 " LSPs here: https://github.com/neoclide/coc.nvim/wiki/Language-servers
+
 call plug#begin()
 
 Plug 'scrooloose/nerdtree'
@@ -84,13 +88,13 @@ Plug 'airblade/vim-gitgutter'
 Plug 'flazz/vim-colorschemes'
 Plug 'benmills/vimux'
 Plug 'greghor/vim-pyShell'
-Plug 'ryanoasis/vim-devicons'
 Plug 'mhinz/vim-startify'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'ryanoasis/vim-devicons'
 
 call plug#end() 
-
 " GitGutter config for colors
+
 highlight GitGutterDelete guifg=#FF0000 ctermfg=1
 highlight GitGutterAdd    guifg=#00FF00 ctermfg=2 
 highlight GitGutterDelete guifg=#FF0000 ctermfg=1
@@ -106,5 +110,21 @@ let g:NERDTreeWinPos = "right"
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 map <leader>nn :NERDTreeToggle<cr>
 map <leader>nf :NERDTreeFind<cr>
+
+" COC Plugin config
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call ShowDocumentation()<CR>
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
 
 "}}}
