@@ -1,6 +1,9 @@
 " <leader> + <cr> to remove highlight
-nnoremap <silent> <leader><cr> :noh<cr>
+nnoremap <CR> :noh<CR><CR>:<backspace>
+
+" Yank and paste to and from clipboard when togglepaste mode is enabled
 nnoremap <leader>pp :call TogglePasteMode()<cr>
+
 nnoremap <leader>cn  :edit $MYVIMRC<cr> 
 nnoremap <leader>cnh :split $MYVIMRC<cr> 
 nnoremap <leader>cnv :vsplit $MYVIMRC<cr> 
@@ -16,22 +19,18 @@ cnoremap <C-F> <Right>
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
 
+"-- AUTOCLOSE NATIVE CONFIG
+      "autoclose and position cursor to write text inside
+inoremap ' ''<left>
+inoremap ` ``<left>
+inoremap " ""<left>
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
+
 " ipython-shell
 nnoremap <localleader>ss :call StartPyShell()<CR>
 noremap <localleader>sk :call StopPyShell()<CR>
 " code execution
 nnoremap <leader>r :call PyShellSendLine()<CR>
 vnoremap <leader>r :call PyShellSendLine()<CR>
-
-" LSP config
-nnoremap <leader>dd :LspDefinition<cr>
-nnoremap <leader>dn :LspNextDiagnostic<cr>
-nnoremap <leader>dp :LspPreviousDiagnostic<cr>
-nnoremap <leader>df :LspReferences<cr>
-nnoremap <leader>dr :LspRename<cr>
-nnoremap <leader>ds :LspStopServer<cr>
-nnoremap <leader>dp :LspPeekDefinition<cr>
-nnoremap <leader>da :LspCodeAction<cr>
-nnoremap <leader>dh :LspHover<cr>
-nnoremap <leader>df :LspDocumentFormat<cr> 
-nnoremap <leader>dd :LspDefinition<cr>

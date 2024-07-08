@@ -28,11 +28,25 @@ function! QuickfixToggle()
 	endif
 endfunction
 
+let g:paste_mode = 0
+
+" Function to toggle paste mode
 function! TogglePasteMode()
-   setlocal paste!
-   if &paste == 1
-       echo "Pastemode is on"
-   else
-       echo "Pastemode if off"
-   endif
-endfunction    
+  if g:paste_mode == 0
+    let g:paste_mode = 1
+    " Set mappings for paste mode
+    vnoremap <leader>y "+y
+    vnoremap <leader>p "+p
+    echo "Paste mode enabled"
+  else
+    let g:paste_mode = 0
+    " Unset mappings for normal mode
+    vunmap <leader>y
+    vunmap <leader>p
+    echo "Paste mode disabled"
+  endif
+endfunction
+
+" Normal mode mapping to toggle paste mode
+nnoremap <leader>pp :call TogglePasteMode()<CR>
+

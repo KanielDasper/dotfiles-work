@@ -23,14 +23,25 @@ set fileencodings=UTF-8
 set autoread
 au FocusGained,BufEnter * silent! checktime
 
+" Error and undo handling
+set noerrorbells visualbell t_vb=
+set noswapfile
+set nobackup
+set undodir=~/.vim/undodir
+set undofile
+set clipboard=unnamed
+
 " Search completion in the vim terminal
 set wildmenu
 set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
-set hlsearch
-set incsearch
 set showcmd
 set showmatch
-set undofile
+
+" Search with / 
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
 
 " Tab and indentation settings
 set autoindent
@@ -38,9 +49,11 @@ set smartindent
 set wrap
 set expandtab
 set smarttab
-set shiftwidth=4
-set tabstop=4
+
 set linebreak
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
 set textwidth=79
 
 " Filetype Specific settings ----------------------{{{
@@ -54,34 +67,28 @@ augroup filetype_python
 	autocmd FileType python vnoremap <buffer> <localleader>c :s/^/#/<CR>gv
 	autocmd FileType python vnoremap <buffer> <localleader>u :s/^#//<CR>gv
 augroup END
+
+au BufNewFile,BufRead *.py
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+
 " }}}
 
 " Vim plug plug-ins ----------------------------------------{{{
+" LSPs here: https://github.com/neoclide/coc.nvim/wiki/Language-servers
 call plug#begin()
 
-Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
 Plug 'scrooloose/nerdtree'
 Plug 'airblade/vim-gitgutter'
 Plug 'flazz/vim-colorschemes'
 Plug 'benmills/vimux'
 Plug 'greghor/vim-pyShell'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'mhinz/vim-startify'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end() 
-
-function! s:on_lsp_buffer_enabled() abort
-	setlocal omnifunc=lsp#complete
-endfunction
-
-augroup lsp_install
-	au!
-	autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-augroup END
-
 
 " GitGutter config for colors
 highlight GitGutterDelete guifg=#FF0000 ctermfg=1
