@@ -103,3 +103,4 @@ Gemfile.lock
 
 .stowignore
 .viminfo
+viminfo
