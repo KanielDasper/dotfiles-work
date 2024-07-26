@@ -1,7 +1,3 @@
-Here’s a more polished version of your markdown:
-
----
-
 # Dotfiles for Work Setup
 
 These dotfiles can be cloned to your machine and managed with GNU Stow to create symlinks. They are designed to quickly set up a development environment on Linux machines or WSL (Debian-based).
@@ -29,5 +25,3 @@ git clone --depth 1 https://github.com/KanielDasper/dotfiles-work && cd dotfiles
 # Then run the installer
 ./apt-installer.sh
 ```
-
----
