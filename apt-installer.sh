@@ -32,7 +32,7 @@ cd "$HOME"
 virtualenv PyEnv
 source $"HOME"/config/zsh/.zshrc
 source $"HOME"/pyENV/bin/activate
-pip install torch pandas numpy tensorflow openai
+pip install torch pandas numpy tensorflow openai scikit-learn
 
 # Switch to Zsh-shell
 echo "Changing shell to Zsh..."
