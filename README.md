@@ -1,14 +1,33 @@
-# Dotfiles for work setup
+Here’s a more polished version of your markdown:
 
-The dotfiles can be cloned to your own machine and stowed as symlinks with GNU stow.
+---
 
-## Important notes
+# Dotfiles for Work Setup
 
-- Dotfiles come with a BASH installer script **(apt-installer.sh)** which aptly named is designed for a linux environment using apt as the package manager. THE INSTALLER SCRIPT WILL NOT WORK WITH OTHER PACKAGE MANAGERS THAN APT.
+These dotfiles can be cloned to your machine and managed with GNU Stow to create symlinks. They are designed to quickly set up a development environment on Linux machines or WSL (Debian-based).
 
-- Currently, the focus of the setup is a python work environment with VIM as the IDE/text editor. Other tools and utilities such as cargo, cmake and an assortment of linux build-tools are part of the installer script.
+## Overview
 
-## Notes on VIM
-My VIM setup uses "vim-plug" as the plugin manager combined with a LSP plugin setup, that requires the user to run :LspInstallSerer when working with a new programming language.
+- **Installer Script**: The repository includes a BASH installer script, **`apt-installer.sh`**, intended for systems using the APT package manager. **This script will not work with other package managers.**
 
-The LSP setup is hotkeyed to CTRL + X -> CTRL + O to activate LSP functionality
+- **Focus**: The setup centers around a Python development environment with VIM and tmux as the primary tools for IDE and REPL.
+
+- **Additional Tools**: The installer script also includes tools like Cargo, CMake, and various Linux build utilities.
+
+## VIM Configuration
+
+The VIM setup uses "vim-plug" for managing plugins, along with the CoC.nvim plugin for LSP support. For a list of supported language servers, visit: [CoC.nvim Language Servers](https://github.com/neoclide/coc.nvim/wiki/Language-servers).
+
+## Installation Guide
+
+To install, run the following commands in your terminal from the root directory:
+
+```bash
+# Clone the repository
+git clone --depth 1 https://github.com/KanielDasper/dotfiles-work && cd dotfiles-work
+
+# Then run the installer
+./apt-installer.sh
+```
+
+---
