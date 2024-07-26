@@ -7,6 +7,7 @@ nnoremap <leader>cn  :edit $MYVIMRC<cr>
 nnoremap <leader>cnh :split $MYVIMRC<cr> 
 nnoremap <leader>cnv :vsplit $MYVIMRC<cr> 
 nnoremap <localleader>. :source $MYVIMRC<cr>
+nnoremap <localleader>c :echo getcwd()<cr>
 nnoremap <C-D> :term<CR>
 inoremap jj <esc>
 nnoremap - ddp 
@@ -35,3 +36,8 @@ noremap <localleader>sk :call StopPyShell()<CR>
 " code execution
 nnoremap <leader>r :call PyShellSendLine()<CR>
 vnoremap <leader>r :call PyShellSendLine()<CR>
+
+" tabs
+nnoremap <leader>t :tabnew<CR>
+nnoremap <leader>l :tabnext<CR>
+nnoremap <leader>h :tabprevious<CR>
