@@ -104,3 +104,4 @@ Gemfile.lock
 .stowignore
 .viminfo
 viminfo
+.netrwhist
