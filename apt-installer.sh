@@ -27,6 +27,13 @@ echo "Initiating vim-plug plugins..."
 vim +PlugInstall
 mv "$HOME"/dotfiles-work/vim/.vim/plugged/colors "$HOME"/dotfiles-work/vim/.vim/
 
+echo "Creating python virtual environment..."
+cd "$HOME"
+virtualenv PyEnv
+source $"HOME"/config/zsh/.zshrc
+source $"HOME"/pyENV/bin/activate
+pip install torch pandas numpy tensorflow openai
+
 # Switch to Zsh-shell
 echo "Changing shell to Zsh..."
 echo "Provide your password to proceed:"

@@ -1,6 +1,11 @@
 # Path to your Oh My Zsh installation.
 export ZSH="$ZDOTDIR/ohmyzsh"
 
+# PyENV activation
+if [[ -d "$VIRTUAL_ENV" ]]; then
+    source "$VIRTUAL_ENV/bin/activate"
+fi
+
 # Theme
 ZSH_THEME="gentoo" # set by `omz`
 
@@ -12,6 +17,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
+
 
 # User configuration
 export USER="daniel"
