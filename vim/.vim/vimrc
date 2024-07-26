@@ -3,6 +3,7 @@
 " ****************
 let maplocalleader=","
 let mapleader=" "
+set updatetime=300
 set signcolumn=yes
 set mouse=a
 set nocompatible
@@ -29,6 +30,7 @@ au FocusGained,BufEnter * silent! checktime
 set noerrorbells visualbell t_vb=
 set noswapfile
 set nobackup
+set nowritebackup
 set undodir=~/.vim/undodir
 set undofile
 set clipboard=unnamed
@@ -47,9 +49,7 @@ set smartcase
 
 " Tab and indentation settings
 set autoindent
-set smartindent
 set wrap
-set expandtab
 set smarttab
 
 set linebreak
@@ -58,7 +58,7 @@ set softtabstop=2
 set tabstop=2
 set textwidth=79
 
-" Filetype Specific settings ----------------------{{{
+" Filetype Specific settings ----------------------
 
 augroup filetype_javascript
 	autocmd!
@@ -76,9 +76,8 @@ au BufNewFile,BufRead *.py
     \ set softtabstop=4 |
     \ set shiftwidth=4 |
 
-" }}}
 
-" Vim plug plug-ins ----------------------------------------{{{
+" Vim plug plug-ins --------------------------------------
 " LSPs here: https://github.com/neoclide/coc.nvim/wiki/Language-servers
 
 call plug#begin()
@@ -127,4 +126,5 @@ function! ShowDocumentation()
   endif
 endfunction
 
-"}}}
+set viminfo+=n~/.vim/viminfo
+set rtp+=/opt/homebrew/opt/fzf

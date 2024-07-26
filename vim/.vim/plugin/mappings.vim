@@ -3,7 +3,6 @@ nnoremap <CR> :noh<CR><CR>:<backspace>
 
 " Yank and paste to and from clipboard when togglepaste mode is enabled
 nnoremap <leader>pp :call TogglePasteMode()<cr>
-
 nnoremap <leader>cn  :edit $MYVIMRC<cr> 
 nnoremap <leader>cnh :split $MYVIMRC<cr> 
 nnoremap <leader>cnv :vsplit $MYVIMRC<cr> 
@@ -28,9 +27,11 @@ inoremap ( ()<left>
 inoremap [ []<left>
 inoremap { {}<left>
 
+" --- PYSHALL CONFIG"
 " ipython-shell
 nnoremap <localleader>ss :call StartPyShell()<CR>
 noremap <localleader>sk :call StopPyShell()<CR>
+
 " code execution
 nnoremap <leader>r :call PyShellSendLine()<CR>
 vnoremap <leader>r :call PyShellSendLine()<CR>
