@@ -9,3 +9,4 @@ export XDG_RUNTIME_DIR="/run/user/${UID}"
 export PATH="/usr/share:$PATH"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export HISTFILE=~/.config/zsh/.zsh_history
+export VIRTUAL_ENV="$HOME/PyENV"
