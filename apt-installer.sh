@@ -4,13 +4,14 @@ set -e
 
 # Define colors
 GREEN='\033[0;32m'
+RED='\033[0;31m'
 NC='\033[0m' # No Color
 
 # Check if APT is available
 if command -v apt-get >/dev/null 2>&1; then
-    echo -e "${GREEN}APT is the package manager${NC}"
+    echo -e "${GREEN}APT is the package manager!${NC}"
 else
-    echo -e "${GREEN}APT is not the package manager. Program will terminate...${NC}"
+    echo -e "${RED}APT is not the package manager. Program will terminate...${NC}"
     exit 1
 fi
 
@@ -20,6 +21,7 @@ VIM_AUTOLOAD_DIR="$HOME/.vim/autoload"
 PYENV_DIR="$HOME/PyENV"
 VIM_PLUG_URL="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 OH_MY_ZSH_INSTALL_URL="https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
+ZDOTDIR="$HOME/.config/zsh"
 
 # Install packages
 echo -e "${GREEN}Updating and upgrading packages...${NC}"
@@ -50,9 +52,9 @@ if ! command -v zsh &> /dev/null; then
     sudo apt install -y zsh
 fi
 
-# Install Oh My Zsh
+# Install Oh My Zsh in the desired directory
 echo -e "${GREEN}Installing Oh My Zsh...${NC}"
-sh -c "$(curl -fsSL $OH_MY_ZSH_INSTALL_URL)" "" --unattended
+ZSH="$ZDOTDIR/ohmyzsh" sh -c "$(curl -fsSL $OH_MY_ZSH_INSTALL_URL)" "" --unattended
 
 # Change the default shell to zsh
 echo -e "${GREEN}Changing default shell to zsh...${NC}"
