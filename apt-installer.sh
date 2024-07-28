@@ -5,15 +5,7 @@ set -e
 # Define colors
 GREEN='\033[0;32m'
 RED='\033[0;31m'
-NC='\033[0m' # No Color
-
-# Check if APT is available
-if command -v apt-get >/dev/null 2>&1; then
-    echo -e "${GREEN}APT is the package manager!${NC}"
-else
-    echo -e "${RED}APT is not the package manager. Program will terminate...${NC}"
-    exit 1
-fi
+NC='\033[0m' 
 
 # Define variables
 DOTFILES_DIR="$HOME/dotfiles-work"
@@ -28,7 +20,7 @@ echo -e "${GREEN}Updating and upgrading packages...${NC}"
 sudo apt update && sudo apt upgrade -y
 
 echo -e "${GREEN}Installing required packages...${NC}"
-sudo apt install -y fzf git unzip neofetch vim tmux zsh stow curl pkg-config cmake zsh-syntax-highlighting zsh-autosuggestions cargo npm python3.11-venv wget bc kmod cpio fakeroot build-essential libncurses-dev bison flex libssl-dev libelf-dev
+sudo apt install -y fzf git unzip neofetch vim tmux stow curl pkg-config cmake zsh zsh-syntax-highlighting zsh-autosuggestions cargo npm python3.11-venv wget bc kmod cpio fakeroot build-essential libncurses-dev bison flex libssl-dev libelf-dev
 
 # Install vim-plug
 echo -e "${GREEN}Installing vim-plug...${NC}"
@@ -46,27 +38,18 @@ python3 -m venv "$PYENV_DIR"
 source "$PYENV_DIR/bin/activate"
 pip install pandas numpy
 
-# Check and install Zsh if not already installed
-if ! command -v zsh &> /dev/null; then
-    echo -e "${GREEN}Zsh is not installed. Installing...${NC}"
-    sudo apt install -y zsh
-fi
-
-# Install Oh My Zsh in the desired directory
+# Install Oh My Zsh
 echo -e "${GREEN}Installing Oh My Zsh...${NC}"
 ZSH="$ZDOTDIR/ohmyzsh" sh -c "$(curl -fsSL $OH_MY_ZSH_INSTALL_URL)" "" --unattended
-
-# Change the default shell to zsh
 echo -e "${GREEN}Changing default shell to zsh...${NC}"
 chsh -s $(which zsh)
-
 echo -e "${GREEN}Oh My Zsh installation and configuration complete.${NC}"
+source "$ZDOTDIR/.zshrc"
 
-# Initiate vim-plug plugins
 echo -e "${GREEN}Initiating vim-plug plugins...${NC}"
 vim +PlugInstall +qa
+sleep 5
 
-# Move colors directory (if needed)
 echo -e "${GREEN}Moving vim colors directory if needed...${NC}"
 if [ -d "$DOTFILES_DIR/vim/.vim/plugged/colors" ]; then
     mv "$DOTFILES_DIR/vim/.vim/plugged/colors" "$DOTFILES_DIR/vim/.vim/"
