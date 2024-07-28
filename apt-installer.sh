@@ -64,12 +64,12 @@ echo -e "${GREEN}Oh My Zsh installation and configuration complete.${NC}"
 
 # Initiate vim-plug plugins
 echo -e "${GREEN}Initiating vim-plug plugins...${NC}"
-vim +PlugInstall +qall
+vim +PlugInstall +qa
 
 # Move colors directory (if needed)
+echo -e "${GREEN}Moving vim colors directory if needed...${NC}"
 if [ -d "$DOTFILES_DIR/vim/.vim/plugged/colors" ]; then
     mv "$DOTFILES_DIR/vim/.vim/plugged/colors" "$DOTFILES_DIR/vim/.vim/"
 fi
 
 echo -e "${GREEN}Script execution complete.${NC}"
-
